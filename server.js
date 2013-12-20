@@ -32,9 +32,9 @@ serialport.on("data", function(data) {
   var sensor = new TweetawattSensor(data);
   
   // console.log(sensor);
-  console.log("From: " + sensor.address + " Recieved: ", sensor.type + "");
-  console.log("  avgamp: " + sensor.avgamp);
-  console.log("  avgwatt: " + sensor.avgwatt);
+  // console.log("From: " + sensor.address + " Recieved: ", sensor.type + "");
+  // console.log("  avgamp: " + sensor.avgamp);
+  // console.log("  avgwatt: " + sensor.avgwatt);
   
   sensors[sensor.address] = sensor
   // console.log(sensor_ids())
