@@ -1,7 +1,7 @@
 var inputs = [];
 
 function loadInputs(){
-  jqxhr = $.getJSON( document.URL+'inputs/', function(data) { 
+  $.getJSON( document.URL+'inputs/', function(data) { 
     console.log('API response received'); 
     inputs = data;
     console.log(data)
@@ -16,7 +16,7 @@ function loadInputs(){
 }
 
 function showInput(id){
-  jqxhr = $.getJSON( document.URL+'inputs/'+id, function(data) { 
+  $.getJSON( document.URL+'inputs/'+id, function(data) { 
     console.log('API response received'); 
     $('#input').append('<p>input gpio port '+data['address_16']+'</br> AvgWatt: '+data['avgwatt']+'</br> AvgAmp: '+data['avgamp']+ '</p>');
   });

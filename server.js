@@ -3,20 +3,20 @@ var express = require('express');
 var app = express();
 
 var rsp = require("serialport");
-var xbee = require("xbee");
+var xbee = require("node-tweetawatt/tw_xbee");
 var SerialPort = rsp.SerialPort; // localize object constructor
 
 if (process.platform == 'darwin') {
   portName = '/dev/cu.usbserial-FTFO9K4V';
 } else {
-  portName = '/dev/ttyUSB0';
+  portName = '/dev/ttyAMA0';
 }
 
 var serialport = new SerialPort(portName, { 
   parser: xbee.packetParser()
 });
 
-var TweetawattSensor = require("tweetawatt").TweetawattSensor;
+var TweetawattSensor = require("node-tweetawatt/tw_sensor").TweetawattSensor;
 
 var sensors = [];
 function sensor_ids(){
@@ -30,6 +30,11 @@ function sensor_ids(){
 }
 serialport.on("data", function(data) {
   var sensor = new TweetawattSensor(data);
+  
+  // console.log(sensor);
+  console.log("From: " + sensor.address + " Recieved: ", sensor.type + "");
+  console.log("  avgamp: " + sensor.avgamp);
+  console.log("  avgwatt: " + sensor.avgwatt);
   
   sensors[sensor.address] = sensor
   // console.log(sensor_ids())
