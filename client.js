@@ -25,8 +25,10 @@ function showInput(id){
 window.onload = function() { 
   var url,  jqxhr;  
   
+  loadInputs();
+  
   var pagereload = setInterval(function(){
     window.loadInputs()
-  },5000);
+  },10000);
   
 };
