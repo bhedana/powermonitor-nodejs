@@ -14,16 +14,16 @@ function showInput(id){
   $.getJSON( document.URL+'inputs/'+id, function(data) { 
     el = $.find('#sensor-'+data.address_16)
     if( el[0] == undefined ){
-      el = $('<div/>', { id: 'sensor-'+data.address_16 }).appendTo('#sensors');
+      el = $('<div/>', { id: 'sensor-'+data.address_16, class: 'sensor' }).appendTo('#sensors');
     }else{
       el = $('#sensor-'+data.address_16)
       el.html('')
     }
     
     var dl = $('<dl/>').appendTo(el);
-    var dt = $('<dt/>', { text: 'Sensor '+data['address_16'] }).appendTo(dl);
-    var dd = $('<dd/>', { text: 'Watts: '+data['avgwatt'] }).appendTo(dl);
-    var dd = $('<dd/>', { text: 'Amps: '+data['avgamp'] }).appendTo(dl);
+    var dt = $('<dt/>', { html: '<span class="label">Sensor:</span> '+data['address_16'] }).appendTo(dl);
+    var dd = $('<dd/>', { html: '<span class="label">Watts:</span> '+data['avgwatt'] }).appendTo(dl);
+    var dd = $('<dd/>', { html: '<span class="label">Amps:</span> '+data['avgamp'] }).appendTo(dl);
   });
 }
 

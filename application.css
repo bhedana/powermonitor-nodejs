@@ -1,0 +1,26 @@
+.sensor{
+  width: 200px;
+  height: 200px;
+  float:left;
+  
+  background-color: #eee;
+  padding: 20px;
+  margin-top: 10px;
+  margin-right: 20px;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+
+}
+
+.sensor dl{
+}
+.sensor dt{
+  font-weight:bold;
+  font-size: 2em;
+}
+.sensor .label{
+  color: #666;
+}
+.sensor dd{
+  font-size: 1.25em;
+}
