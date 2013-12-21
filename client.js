@@ -1,30 +1,54 @@
 var inputs = [];
 
 function loadInputs(){
-  $.getJSON( document.URL+'inputs/', function(data) { 
-    inputs = data;
-    for( i= 0 ; i < inputs.length ; i++ ){ 
-      showInput(inputs[i])
-    } 
-  });  
-  
+  $.ajax({
+      url: document.URL+'inputs/',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data){ 
+        for( i= 0 ; i < data.length ; i++ ){ 
+          showInput(data[i])
+        } 
+      },
+      error: function(data) {
+      }
+  });
+}
+
+function draw_input(el, data){
+  if(data['avgamp']<=0.05){
+    el.addClass('btn-success');
+  } else if(data['avgamp']<=0.90){
+    el.addClass('btn-warning'); 
+  } else {
+    el.addClass('btn-danger');
+  }
+  var dl = $('<dl/>').appendTo(el);
+  var dt = $('<dt/>', { html: data['address_16'] }).appendTo(dl);
+  var dd = $('<dd/>', { html: '<span>Watts:</span> '+data['avgwatt'] }).appendTo(dl);
+  var dd = $('<dd/>', { html: '<span>Amps:</span> '+data['avgamp'] }).appendTo(dl);  
+  var dd = $('<dd/>', { html: '<span>RSSI:</span> '+data['rssi'] }).appendTo(dl);  
 }
 
 function showInput(id){
-  $.getJSON( document.URL+'inputs/'+id, function(data) { 
-    el = $.find('#sensor-'+data.address_16)
-    if( el[0] == undefined ){
-      el = $('<div/>', { id: 'sensor-'+data.address_16, class: 'sensor' }).appendTo('#sensors');
-    }else{
-      el = $('#sensor-'+data.address_16)
-      el.html('')
-    }
-    
-    var dl = $('<dl/>').appendTo(el);
-    var dt = $('<dt/>', { html: '<span class="label">Sensor:</span> '+data['address_16'] }).appendTo(dl);
-    var dd = $('<dd/>', { html: '<span class="label">Watts:</span> '+data['avgwatt'] }).appendTo(dl);
-    var dd = $('<dd/>', { html: '<span class="label">Amps:</span> '+data['avgamp'] }).appendTo(dl);
+  $.ajax({
+      url: document.URL+'inputs/'+id,
+      type: 'GET',
+      dataType: 'json',
+      success: function(data){ 
+        el = $.find('#sensor-'+data.address_16)
+        if( el[0] == undefined ){
+          el = $('<div/>', { id: 'sensor-'+data.address_16, class: 'sensor' }).appendTo('#sensors');
+        }else{
+          el = $('#sensor-'+data.address_16)
+          el.html('')
+        }
+        draw_input(el, data)
+      },
+      error: function(data) {
+      }
   });
+
 }
 
 window.onload = function() { 
@@ -32,5 +56,5 @@ window.onload = function() {
   loadInputs();
   var pagereload = setInterval(function(){
     window.loadInputs()
-  },10000);
+  },2000);
 };
