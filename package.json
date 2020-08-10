@@ -2,7 +2,7 @@
   "name": "raspberry",
   "version": "0.0.1",
   "dependencies": {
-    "express": "3.4.x",
+    "express": "4.17.x",
     "node-tweetawatt": "0.0.1",
     "serialport": "1.2.5"
   },
